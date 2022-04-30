@@ -44,8 +44,26 @@ public class Examen {
     public static void ejercicio2() {
         Scanner leer = new Scanner(System.in);
         int numero;
+        int cantidadAsteriscos;
+        int cantidadFilas = 0;
         System.out.println("Ingrese un número impar");
-        
+        numero = leer.nextInt();
+        for (int i = 1; i <= numero; i++) {
+            if (i % 2 != 0) {
+                cantidadFilas = cantidadFilas + 1;
+            }
+        }
+
+        for (int alto = 1; alto <= cantidadFilas; alto++) {
+            for (int espacio = 1; espacio <= cantidadFilas-alto; espacio++) {
+                System.out.print(" ");
+            }
+            for (int asteriscos = 1; asteriscos <= (alto*2)-1; asteriscos++) {
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
+
     }
 
 }
