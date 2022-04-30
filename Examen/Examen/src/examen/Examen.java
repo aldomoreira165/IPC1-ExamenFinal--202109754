@@ -80,22 +80,50 @@ public class Examen {
         int peso_maximo_camion_total;
         int[] listaPesos = new int[100];
         int[] produccionVaca = new int[100];
+        int cantidadTotalLeche = 0;
+        int cantidadPeso = 0;
+        int maximaProductora = 0;
+        int auxiliarProd;
+        int auxiliarPeso;
 
         System.out.println("Ingrese el número de vacas disponibles para la venta: ");
         vacas_a_la_venta = leer.nextInt();
         System.out.println("Ingrese el peso límite del camión (kg): ");
         peso_maximo_camion_total = leer.nextInt();
         for (int i = 0; i < vacas_a_la_venta; i++) {
-            System.out.println("Ingrese el peso en kilogramos de la vaca " + (i+1));
+            System.out.println("Ingrese el peso en kilogramos de la vaca " + (i + 1));
             listaPesos[i] = leer.nextInt();
-            System.out.println("Ingrese la producción de leche por día en litros de la vaca " + (i+1));
+        }
+        for (int i = 0; i < vacas_a_la_venta; i++) {
+            System.out.println("Ingrese la producción de leche por día en litros de la vaca " + (i + 1));
             produccionVaca[i] = leer.nextInt();
         }
 
-        for (int i = 0; i < cantidad; i++) {
-            
+
+
+        for (int i = 0; i < vacas_a_la_venta; i++) {
+            for (int j = 0; j < i; j++) {
+                if (produccionVaca[j]<produccionVaca[j+1]) {
+                    auxiliarProd = produccionVaca[j];
+                    produccionVaca[j] = produccionVaca[j + 1];
+                    produccionVaca[j + 1] = auxiliarProd;
+                    auxiliarPeso = listaPesos[j];
+                    listaPesos[j] = listaPesos[j + 1];
+                    listaPesos[j + 1] = auxiliarPeso;
+                }
+            }
         }
 
+        for (int i = 0; i < vacas_a_la_venta; i++) {
+            cantidadPeso = cantidadPeso + listaPesos[i];
+            if (cantidadPeso <= peso_maximo_camion_total) {
+                cantidadTotalLeche = cantidadTotalLeche + produccionVaca[i];
+                System.out.println("Prod selecccionada: " + produccionVaca[i]);
+            } else {
+                cantidadPeso = cantidadPeso - listaPesos[i];
+            }
+        }
+        System.out.println("Prod total: " + cantidadTotalLeche);
     }
 
 }
